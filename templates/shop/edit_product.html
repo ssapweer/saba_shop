@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 40px; }
+        .box { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 25px; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 50px; box-sizing: border-box; padding-left: 20px; }
+        textarea { border-radius: 20px; }
+        .btn-save { background: #28a745; color: white; border: none; padding: 15px; border-radius: 50px; width: 100%; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Редактировать товар</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" value="{{ product.name }}" placeholder="Название">
+            <textarea name="description" rows="4">{{ product.description }}</textarea>
+            <input type="number" name="price" value="{{ product.price }}">
+            <input type="url" name="image_url" value="{{ product.image_url }}" placeholder="Ссылка на фото">
+            <button type="submit" class="btn-save">СОХРАНИТЬ</button>
+        </form>
+    </div>
+</body>
+</html>

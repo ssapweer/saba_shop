@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить товар</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 40px; }
+        .form-container { max-width: 500px; margin: 0 auto; background: white; padding: 25px; border-radius: 10px; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .btn-add { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>📦 Добавить новый товар</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Название товара" required>
+            <textarea name="description" placeholder="Описание товара" rows="4" required></textarea>
+            <input type="number" name="price" value="{{ product.price }}" step="0.01" required placeholder="Цена товара">
+            <input type="url" name="image_url" placeholder="Ссылка на фото (URL)">
+
+            <button type="submit" class="btn-add">Создать товар</button>
+        </form>
+        <a href="{% url 'my_admin' %}" style="display:block; text-align:center; margin-top:10px;">Назад</a>
+    </div>
+</body>
+</html>

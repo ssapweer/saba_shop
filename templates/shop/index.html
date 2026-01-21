@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>SABA SHOP</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #000000; margin: 0; padding: 20px; }
+.navbar {
+    background: #C0C0C0; /* Тот самый синий */
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px; /* Сделал её тоже овальной, раз нам нравится такой стиль */
+    margin-bottom: 25px;
+}        .navbar a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; }
+        .btn-oval-red { background: #ff4757; padding: 10px 25px; border-radius: 50px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: white; padding: 20px; border-radius: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .card img { width: 100%; height: 200px; object-fit: contain; border-radius: 10px; }
+        .btn-add { display: block; background: #28a745; color: white; padding: 12px; text-decoration: none; border-radius: 50px; margin-top: 15px; font-weight: bold; }
+        .btn-info { display: block; background: #007bff; color: white; padding: 12px; text-decoration: none; border-radius: 50px; margin-top: 8px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'shop' %}" style="font-size: 1.5em; color: #404040;">SABA SHOP</a>
+        <div>
+            <a href="{% url 'promotions' %}">Акции</a>
+            <a href="{% url 'cart_detail' %}" class="btn-oval-red">Корзина</a>
+            <a href="{% url 'my_admin' %}">Управление</a>
+        </div>
+    </div>
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="card">
+            <img src="{{ product.image_url }}" alt="Фото товара">
+            <h3>{{ product.name }}</h3>
+            <p style="font-size: 1.2em; color: #2ecc71;"><strong>{{ product.price }} руб.</strong></p>
+            <a href="{% url 'add_to_cart' product.pk %}" class="btn-add">В КОРЗИНУ</a>
+            <a href="{% url 'product_detail' product.pk %}" class="btn-info">ОПИСАНИЕ</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

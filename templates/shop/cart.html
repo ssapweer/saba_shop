@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя Корзина</title>
+    <style>
+        body { font-family: sans-serif; background: #f8f9fa; padding: 30px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 20px 0; }
+        .btn-q { text-decoration: none; background: #f1f1f1; color: #333; padding: 8px 20px; border-radius: 50px; font-weight: bold; }
+        .btn-pay { background: #007bff; color: white; padding: 18px 40px; border: none; border-radius: 50px; width: 100%; font-size: 1.2em; font-weight: bold; cursor: pointer; margin-top: 30px; }
+        #modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); }
+        .modal-box { background:white; width:400px; margin:100px auto; padding:30px; border-radius:25px; text-align:center; }
+        input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 50px; border: 1px solid #ddd; padding-left: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Твои покупки 🛒</h1>
+        {% for item in items %}
+        <div class="item">
+            <div><strong>{{ item.product.name }}</strong></div>
+            <div>
+                <a href="{% url 'remove_from_cart' item.pk %}" class="btn-q">-</a>
+                <span style="margin: 0 15px; font-size: 1.2em;">{{ item.quantity }}</span>
+                <a href="{% url 'add_to_cart' item.product.pk %}" class="btn-q">+</a>
+            </div>
+            <div><strong>{{ item.total_price }} руб.</strong></div>
+        </div>
+        {% endfor %}
+        <h2 style="text-align: right; color: #28a745;">Итого: {{ total }} руб.</h2>
+        <button class="btn-pay" onclick="document.getElementById('modal').style.display='block'">ОФОРМИТЬ ЗАКАЗ</button>
+        <a href="{% url 'shop' %}" style="display:block; text-align:center; margin-top:20px; color:gray; text-decoration:none;">← Вернуться в магазин</a>
+    </div>
+
+    <div id="modal">
+        <div class="modal-box">
+            <h3>Оплата заказа</h3>
+            <form onsubmit="alert('Заказ принят! Ждите звонка Сабины :)'); return false;">
+                <input type="text" placeholder="Номер карты" required>
+                <input type="tel" placeholder="Телефон" required>
+                <input type="email" placeholder="Email" required>
+                <button type="submit" class="btn-pay" style="background:#28a745;">ОПЛАТИТЬ</button>
+                <button type="button" onclick="document.getElementById('modal').style.display='none'" style="border:none; background:none; color:red; cursor:pointer; margin-top:15px;">Отмена</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
